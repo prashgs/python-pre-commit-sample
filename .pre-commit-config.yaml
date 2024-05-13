@@ -1,14 +1,32 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.2.0
-    hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-yaml
-    -   id: check-added-large-files
--   repo: https://github.com/pre-commit/mirrors-yapf
-    rev: "2c98abd57f17136b33a7c44935d6aabc2c2f99fa"
-    hooks:
-    -   id: yapf
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v3.2.0
+      hooks:
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+          - id: check-yaml
+          - id: check-added-large-files
+          - id: check-json
+    - repo: https://github.com/pre-commit/mirrors-yapf
+      rev: "2c98abd57f17136b33a7c44935d6aabc2c2f99fa"
+      hooks:
+          - id: yapf
+    - repo: https://github.com/pre-commit/mirrors-mypy
+      rev: "e5ea6670624c24f8321f6328ef3176dbba76db46" # Use the sha / tag you want to point at
+      hooks:
+          - id: mypy
+            args: [--strict, --ignore-missing-imports]
+    - repo: https://github.com/PyCQA/pylint
+      rev: "7521eb1dc6ac89fcf1763bee879d1207a87ddefa" # Use the sha / tag you want to point at
+      hooks:
+          - id: pylint
+            args: ["--class-rgx=(^[A-Z]{1}[a-z]+)+([A-Z]{1}[a-z]+)*([a-z]$)", "-rn", "-sn","--disable=C0111,C0114,C0115,C0116,R0903"]
+    # - repo: https://github.com/PyCQA/flake8
+    #   rev: "408d4d695c71b0b232cea576876e757c87a3379c"
+    #   hooks:
+    #       - id: flake8
+    #         types: [python]
+    #         args: ["--max-line-length=100"]
+    #         additional_dependencies: ["pep8-naming", "pycodestyle", "flake8-coding","flake8-docstrings"]
